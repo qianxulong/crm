@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block con %}
+<h4>数据列表</h4>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <a href="{{ add_url }}" class="btn btn-primary">添加数据</a>
+            {% if showlist.config.search_fields %}
+                <form action="" class="pull-right">
+
+                    <input type="text" name="search" value="{{ showlist.config.search_condition }}">
+                    <button class="btn btn-success" type="submit">搜索</button>
+                </form>
+            {% endif %}
+
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <select name="action" id="" style="width: 200px;margin: 5px">
+                    <option value="">----------------</option>
+                    {% for item in showlist.get_action_list %}
+
+                        <option value="{{ item.name }}">{{ item.desc }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-info">Go</button>
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        {% for item in showlist.get_header_list %}
+                            <th>{{ item }}</th>
+                        {% endfor %}
+
+
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    {% for data in showlist.get_body %}
+
+                        <tr>
+                            {% for item in data %}
+                                <td>{{ item }}</td>
+                            {% endfor %}
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ showlist.page_html|safe }}
+                    </ul>
+                </nav>
+            </form>
+        </div>
+        <div class="col-md-3">
+            <div class="filter">
+                <h4 style="">Filter</h4>
+                {% for filter_field,linktags in showlist.get_filter_linktags.items %}
+                    <div class="well">
+                        <p>By {{ filter_field.upper }}</p>
+                        {% for link in linktags %}
+                            <p>{{ link|safe }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#choice").click(function () {
+        if ($(this).prop("checked")) {
+            $(".choice_item").prop("checked", true)
+        } else {
+            $(".choice_item").prop("checked", false)
+        }
+
+    })
+
+</script>
+{% endblock %}

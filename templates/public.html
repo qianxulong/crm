@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>公共客户</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+
+
+</head>
+<body>
+<h3>>公共客户</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>客户姓名</th>
+                    <th>跟进人</th>
+                    <th>跟进进度</th>
+                    <th>确认跟进</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for customer in public_customer %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ customer.name}}</td>
+                    <td>{{ customer.consultant.name }}</td>
+                    <td><a href="/ladmin/crm/consultrecord/?customer={{ customer.pk }}">跟进记录</a></td>
+                    <td><a href="/ladmin/crm/customer/further/{{ customer.pk }}">确认跟进</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script src="/static/jquery-3.2.1.min.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

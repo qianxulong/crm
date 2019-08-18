@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include "wid.html" %}
+</head>
+<body>
+<h3>删除数据</h3>
+<form action=""method="post">
+    {% csrf_token %}
+    <button class ="btn btn-danger"type="submit">确认删除吗？</button>
+    <a  class ="btn btn-primary"href="{{ url }}">取消</a>
+</form>
+</body>
+</html>
